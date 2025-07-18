@@ -1,0 +1,20 @@
+.listTeg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 100px;
+  padding: 12px 18px;
+
+  height: 48px;
+  background: var(--badges);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--main);
+}
+
+.icon {
+  fill: currentColor;
+  stroke: currentColor;
+}

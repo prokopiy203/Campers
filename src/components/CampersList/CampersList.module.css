@@ -1,0 +1,130 @@
+.listCamperItems {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.listItem {
+  padding: 24px;
+  display: flex;
+  gap: 24px;
+  border: 1px solid #dadde1;
+  border-radius: 20px;
+  width: 888px;
+}
+
+.listImg {
+  width: 292px;
+  height: 320px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.listInfoBox {
+  width: 524px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.listTitleBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.listTitle {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33333;
+  color: #101828;
+}
+
+.listPriceBox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.listPrice {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33333;
+  color: #101828;
+}
+
+.listBtnLike {
+  display: flex;
+  align-items: center;
+}
+
+.heart {
+  transition: all 0.3 ease-in;
+}
+
+.heartActive {
+  fill: red;
+  stroke: red;
+}
+
+.listNavigation {
+  display: flex;
+  gap: 16px;
+}
+
+.listNavigationItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #101828;
+}
+
+.listDesc {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #475467;
+}
+
+.listBtnMore {
+  border-radius: 200px;
+
+  width: 166px;
+  height: 56px;
+  background: var(--button);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+
+.listTegBox {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  /* width: 400px; */
+  height: 104px;
+  overflow-y: scroll;
+}
+
+.listTeg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 100px;
+  padding: 12px 18px;
+
+  height: 48px;
+  background: var(--badges);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--main);
+}

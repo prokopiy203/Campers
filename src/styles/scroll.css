@@ -1,0 +1,26 @@
+.scroll {
+  overflow-y: auto;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #444446 transparent;
+}
+
+/* Chrome, Safari, Edge */
+.scroll::-webkit-scrollbar {
+  width: 6px; /* тонкий скролбар */
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #444446;
+  border-radius: 12px;
+}
+
+/* 🔥 Прибирає стрілки в Chrome / Safari */
+.scroll::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}

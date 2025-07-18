@@ -1,0 +1,37 @@
+.headerWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 450px;
+  border-bottom: 1px solid #f2f4f7;
+  /* padding: 24px 0px; */
+  width: 100%;
+  height: 72px;
+}
+
+.logo {
+}
+
+.navLink:hover,
+.navLink:focus {
+}
+
+.navBox {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+}
+
+.navLink {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--main);
+  /* transition: color 0.3s ease-in, font-weight 0.3s ease-in; */
+  transition: all var(--btn-transition);
+}
+
+.active {
+  color: var(--button-hover);
+  font-weight: 700;
+}
