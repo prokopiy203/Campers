@@ -4,15 +4,25 @@ import Icon from "../UI/Icon/Icon";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCampers } from "../../redux/campers/operations";
-import { selectedCampersByLocation } from "../../redux/campers/selectors";
+import {
+  getCampers,
+  getCampersByLocation,
+} from "../../redux/campers/operations";
+import {
+  selectedCampersByFiltered,
+  selectedCampersItem,
+  selectHasMore,
+} from "../../redux/campers/selectors";
 import CampersCategories from "../CampersCategories/CampersCategories";
+import { setFilters } from "../../redux/campers/slice";
 
 function CampersList() {
   const [isFavorite, setIsFavorite] = useState(false);
   const dispatch = useDispatch();
 
-  const campers = useSelector(selectedCampersByLocation);
+  const campers = useSelector(selectedCampersItem);
+  const filters = useSelector(selectedCampersByFiltered);
+  const hasMore = useSelector(selectHasMore);
 
   useEffect(() => {
     if (campers.length === 0) {
@@ -24,8 +34,45 @@ function CampersList() {
     setIsFavorite((prev) => !prev);
   };
 
+  const handleLoadMore = () => {
+    if (!hasMore) {
+      return;
+    }
+
+    const nextPage = filters.page + 1;
+
+    dispatch(setFilters({ ...filters, page: nextPage }));
+    const queryParams = {
+      page: nextPage,
+      limit: filters.limit || 4,
+    };
+
+    if (filters.location) queryParams.location = filters.location;
+    if (filters.transmission) queryParams.transmission = filters.transmission;
+    if (filters.engine) queryParams.engine = filters.engine;
+    if (filters.vehicleType) queryParams.form = filters.vehicleType;
+
+    if (filters.equipment && filters.equipment.length) {
+      filters.equipment.forEach((item) => {
+        queryParams[item] = true;
+      });
+    }
+
+    const hasActiveFilters =
+      filters.location ||
+      filters.transmission ||
+      filters.engine ||
+      filters.vehicleType ||
+      (filters.equipment && filters.equipment.length > 0);
+
+    if (hasActiveFilters) {
+      dispatch(getCampersByLocation(queryParams));
+    } else {
+      dispatch(getCampers(queryParams));
+    }
+  };
   return (
-    <div>
+    <div className={styles.listWrapper}>
       <ul className={styles.listCamperItems}>
         {campers.map((item) => (
           <li key={item.id} className={styles.listItem}>
@@ -93,6 +140,14 @@ function CampersList() {
           </li>
         ))}
       </ul>
+      <button
+        className={styles.btnLoadMore}
+        type="button"
+        disabled={!hasMore}
+        onClick={handleLoadMore}
+      >
+        {hasMore ? "Load More" : "Not Results"}
+      </button>
     </div>
   );
 }

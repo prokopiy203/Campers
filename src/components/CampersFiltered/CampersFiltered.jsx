@@ -1,20 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Icon from "../UI/Icon/Icon";
 import style from "./CampersFiltered.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { selectedCampersByLocation } from "../../redux/campers/selectors";
+import { selectedCampersByFiltered } from "../../redux/campers/selectors";
 import { availableTags } from "../../hooks/tagConfig";
 import clsx from "clsx";
-import { getCampersByLocation } from "../../redux/campers/operations";
+import {
+  getCampers,
+  getCampersByLocation,
+} from "../../redux/campers/operations";
+import { resetFilters, setFilters } from "../../redux/campers/slice";
 
 function CampersFiltered() {
   const dispatch = useDispatch();
 
+  const reduxFilters = useSelector(selectedCampersByFiltered);
   const [selectedFilters, setSelectedFilters] = useState({
-    equipment: [], // kitchen, AC, bathroom, ...
+    equipment: [],
+    transmission: "",
+    engine: "",
     vehicleType: "",
-    location: "", // city
+    location: "",
+    page: 1,
+    limit: 4,
   });
+
+  useEffect(() => {
+    setSelectedFilters(reduxFilters);
+  }, [reduxFilters]);
 
   const handleFilterChange = (e) => {
     const { name, value, checked } = e.target;
@@ -32,39 +45,46 @@ function CampersFiltered() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(setFilters(selectedFilters));
 
     const query = {};
-    const { location, equipment, vehicleType } = selectedFilters;
+    const { location, equipment, vehicleType, transmission, engine, limit } =
+      selectedFilters;
 
-    // Додаємо location, якщо не порожній
-    if (location.trim()) {
-      query.location = location.trim();
-    }
+    if (location.trim()) query.location = location.trim();
+    if (vehicleType) query.form = vehicleType;
+    if (transmission) query.transmission = transmission;
+    if (engine) query.engine = engine;
+    if (equipment.length) equipment.forEach((item) => (query[item] = true));
 
-    // Замість vehicleType — бекенд очікує form
-    if (Array.isArray(vehicleType) && vehicleType.length > 0) {
-      query.form = vehicleType[0];
-    }
+    query.page = 1;
+    query.limit = limit || 4;
 
-    // Розгортаємо equipment: { AC: true, TV: true }
-    if (Array.isArray(equipment) && equipment.length > 0) {
-      equipment.forEach((item) => {
-        query[item] = true;
-      });
-    }
+    console.log("SUBMIT", query);
 
-    console.log("🚀 Final query to dispatch:", query);
+    dispatch(setFilters({ ...selectedFilters, page: 1 }));
+
     dispatch(getCampersByLocation(query));
-
-    setSelectedFilters({
-      equipment: [],
-      vehicleType: "",
-      location: "",
-    });
   };
 
-  const location = useSelector(selectedCampersByLocation);
-  console.log("Location", location);
+  const handleReset = () => {
+    const resetValues = {
+      equipment: [],
+      transmission: "",
+      engine: "",
+      vehicleType: "",
+      location: "",
+      page: 1,
+      limit: 4,
+    };
+
+    setSelectedFilters(resetValues); // скидає локальний стейт
+    dispatch(resetFilters()); // скидає Redux
+    dispatch(getCampers());
+  };
+
+  //   const location = useSelector(selectedCampersByLocation);
+  //   console.log("Location", location);
 
   return (
     <form className={style.filteredWrapper} onSubmit={handleSubmit}>
@@ -96,34 +116,75 @@ function CampersFiltered() {
       <h2 className={style.filterTitle}>Filter</h2>
       <h3 className={style.filterVehicle}>Vehicle equipment</h3>
       <ul className={clsx("scroll", style.filterTagBox)}>
-        {Object.entries(availableTags).flatMap(([key, config]) => {
-          if (config.values) {
-            return Object.entries(config.values).map(([subKey, subConfig]) => (
-              <li key={`${key}-${subKey}`}>
-                <label>
-                  <input
-                    className={style.checkboxTag}
-                    type="checkbox"
-                    value={subKey}
-                    checked={selectedFilters.equipment.includes(subKey)}
-                    name="equipment"
-                    onChange={handleFilterChange}
+        {/* Radio для transmission */}
+        {Object.entries(availableTags.transmission.values).map(
+          ([subKey, subConfig]) => (
+            <li key={`transmission-${subKey}`}>
+              <label>
+                <input
+                  className={style.checkboxTag}
+                  type="checkbox"
+                  name="transmission"
+                  value={subKey}
+                  checked={selectedFilters.transmission === subKey}
+                  onChange={() => {
+                    setSelectedFilters((prev) => ({
+                      ...prev,
+                      transmission: prev.transmission === subKey ? "" : subKey, // якщо вже вибрано — зняти, інакше вибрати
+                    }));
+                  }}
+                />
+                <span className={style.checkboxLabel}>
+                  <Icon
+                    className={style.iconTag}
+                    height={32}
+                    width={32}
+                    name={subConfig.iconName}
+                    stroke="transparent"
                   />
-                  <span className={style.checkboxLabel}>
-                    <Icon
-                      className={style.iconTag}
-                      height={32}
-                      width={32}
-                      name={subConfig.iconName}
-                      stroke="transparent"
-                    />
-                    {subConfig.label}
-                  </span>
-                </label>
-              </li>
-            ));
-          }
-          return (
+                  {subConfig.label}
+                </span>
+              </label>
+            </li>
+          )
+        )}
+
+        {/* Radio для engine */}
+        {Object.entries(availableTags.engine.values).map(
+          ([subKey, subConfig]) => (
+            <li key={`engine-${subKey}`}>
+              <label>
+                <input
+                  className={style.checkboxTag}
+                  type="checkbox"
+                  name="engine"
+                  value={subKey}
+                  checked={selectedFilters.engine === subKey}
+                  onChange={() => {
+                    setSelectedFilters((prev) => ({
+                      ...prev,
+                      engine: prev.engine === subKey ? "" : subKey,
+                    }));
+                  }}
+                />
+                <span className={style.checkboxLabel}>
+                  <Icon
+                    className={style.iconTag}
+                    height={32}
+                    width={32}
+                    name={subConfig.iconName}
+                    stroke="transparent"
+                  />
+                  {subConfig.label}
+                </span>
+              </label>
+            </li>
+          )
+        )}
+        {/* Чекбокси для іншого equipment (тільки верхній рівень, без вкладених values) */}
+        {Object.entries(availableTags)
+          .filter(([key]) => key !== "transmission" && key !== "engine")
+          .map(([key, config]) => (
             <li key={key}>
               <label>
                 <input
@@ -145,8 +206,7 @@ function CampersFiltered() {
                 </span>
               </label>
             </li>
-          );
-        })}
+          ))}
       </ul>
       <h3 className={style.filterVehicle}>Vehicle type</h3>
       <ul className={clsx("scroll", style.filterTagBox)}>
@@ -232,9 +292,14 @@ function CampersFiltered() {
           </label>
         </li>
       </ul>
-      <button type="submit" className={style.btnSearch}>
-        Search
-      </button>
+      <div className={style.btnBox}>
+        <button type="submit" className={style.btnSearch}>
+          Search
+        </button>
+        <button onClick={handleReset} type="button" className={style.btnReset}>
+          Reset
+        </button>
+      </div>
     </form>
   );
 }

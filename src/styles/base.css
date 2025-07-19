@@ -4,6 +4,11 @@ html {
   font-size: 100%; /* Base font size: 16px */
 }
 
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 body {
   font-family: var(--font-family-main);
   font-weight: 400;

@@ -128,3 +128,25 @@
   text-align: center;
   color: var(--main);
 }
+.btnLoadMore {
+  border: 1px solid #dadde1;
+  border-radius: 200px;
+  width: 145px;
+  height: 56px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: #101828;
+}
+
+.btnLoadMore:hover {
+  border: 1px solid var(--button);
+}
+
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 40px;
+}

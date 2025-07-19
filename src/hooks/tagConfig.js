@@ -14,6 +14,7 @@ export const availableTags = {
   engine: {
     values: {
       petrol: { label: "Petrol", iconName: "icon-Petrol" },
+      diesel: { label: "Diesel", iconName: "icon-Petrol" },
     },
   },
   kitchen: {

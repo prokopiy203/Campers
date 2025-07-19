@@ -1,2 +1,3 @@
-export const selectedCampersItem = (state) => state.campers.data.items;
-export const selectedCampersByLocation = (state) => state.campers.data.items;
+export const selectedCampersItem = (state) => state.campers.items;
+export const selectedCampersByFiltered = (state) => state.campers.filters;
+export const selectHasMore = (state) => state.campers.hasMore;
