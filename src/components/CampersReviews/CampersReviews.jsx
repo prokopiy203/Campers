@@ -7,7 +7,6 @@ import Rating from "../Rating/Rating";
 function CampersReviews() {
   const reviews = useSelector(selectCamperDetails);
 
-  console.log(reviews);
   return (
     <div className={styles.reviewsBox}>
       <ul className={styles.listReviews}>

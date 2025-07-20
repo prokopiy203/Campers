@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCamperById } from "../../redux/campers/operations";
 import { selectCamperDetails } from "../../redux/campers/selectors";
+import CampersForm from "../../components/CampersForm/CampersForm";
+import styles from "./DetailsPage.module.css";
 
 function DetailsPage() {
   const { id } = useParams();
@@ -25,7 +27,10 @@ function DetailsPage() {
     <Section>
       <Container>
         <CamperDetails camper={camper} />
-        <Outlet />
+        <div className={styles.featureForm}>
+          <Outlet />
+          <CampersForm />
+        </div>
       </Container>
     </Section>
   );

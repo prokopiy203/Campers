@@ -1,0 +1,42 @@
+.reactDatepicker {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.reactDatepickerDay {
+  width: 36px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  border-radius: 100%;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.reactDatepickerDayToday {
+  background-color: #475467;
+  color: white;
+  border-radius: 100%;
+  width: 36px;
+  height: 34px;
+  line-height: 34px;
+}
+
+.reactDatepickerDaySelected {
+  background-color: #475467;
+  color: white;
+  border-radius: 100%;
+  width: 36px;
+  height: 34px;
+  line-height: 34px;
+}
+
+.formDataPicker {
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 18px 337px 18px 18px;
+  width: 527px;
+  height: 60px;
+  background: #f7f7f7;
+}

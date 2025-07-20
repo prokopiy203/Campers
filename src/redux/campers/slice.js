@@ -48,6 +48,16 @@ const campersSlice = createSlice({
         limit: 4,
       };
     },
+    toggleFavorite(state, action) {
+      const camperId = action.payload;
+      const isFavorite = state.favorites.includes(camperId);
+
+      if (isFavorite) {
+        state.favorites = state.favorites.filter((id) => id !== camperId);
+      } else {
+        state.favorites.push(camperId);
+      }
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -96,5 +106,6 @@ const campersSlice = createSlice({
       .addCase(getCamperById.rejected, handleRejected),
 });
 
-export const { setFilters, resetFilters } = campersSlice.actions;
+export const { setFilters, resetFilters, toggleFavorite } =
+  campersSlice.actions;
 export const campersReducer = campersSlice.reducer;

@@ -32,7 +32,7 @@ export const getCampersByLocation = createAsyncThunk(
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) {
-        return { items: [], total: 0 }; // ✅ обробка прямо тут
+        return { items: [], total: 0 };
       }
 
       return thunkAPI.rejectWithValue(error.message);
@@ -45,7 +45,7 @@ export const getCamperById = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await api.get(`/campers/${id}`);
-      console.log("FetchID", response.data);
+
       return response.data;
     } catch (error) {
       if (error.response?.status === 404) {

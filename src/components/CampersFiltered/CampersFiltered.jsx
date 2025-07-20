@@ -10,6 +10,7 @@ import {
   getCampersByLocation,
 } from "../../redux/campers/operations";
 import { resetFilters, setFilters } from "../../redux/campers/slice";
+import toast from "react-hot-toast";
 
 function CampersFiltered() {
   const dispatch = useDispatch();
@@ -60,11 +61,12 @@ function CampersFiltered() {
     query.page = 1;
     query.limit = limit || 4;
 
-    console.log("SUBMIT", query);
-
     dispatch(setFilters({ ...selectedFilters, page: 1 }));
 
-    dispatch(getCampersByLocation(query));
+    dispatch(getCampersByLocation(query))
+      .unwrap()
+      .then((res) => toast.success(`Found ${res.items.length} campers!`))
+      .catch(() => toast.error("Failed to load campers."));
   };
 
   const handleReset = () => {
@@ -81,6 +83,8 @@ function CampersFiltered() {
     setSelectedFilters(resetValues);
     dispatch(resetFilters());
     dispatch(getCampers());
+
+    toast.success("Filters reset and all campers loaded.");
   };
 
   return (
@@ -177,7 +181,6 @@ function CampersFiltered() {
             </li>
           )
         )}
-        {/* Чекбокси для іншого equipment (тільки верхній рівень, без вкладених values) */}
         {Object.entries(availableTags)
           .filter(([key]) => key !== "transmission" && key !== "engine")
           .map(([key, config]) => (

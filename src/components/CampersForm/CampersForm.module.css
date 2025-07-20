@@ -1,0 +1,72 @@
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+
+  gap: 24px;
+  border: 1px solid #dadde1;
+  border-radius: 10px;
+  padding: 44px;
+  width: 641px;
+  height: 620px;
+}
+
+.tittleBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tittle {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #101828;
+}
+
+.decs {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #6c717b;
+}
+.formBox {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+.formGroup {
+  border-radius: 12px;
+  padding: 18px 337px 18px 18px;
+  width: 527px;
+  height: 60px;
+  background: #f7f7f7;
+}
+
+.formGroupTextarea {
+  border-radius: 10px;
+  padding: 18px 308px 76px 18px;
+  width: 527px;
+  height: 118px;
+  background: #f7f7f7;
+}
+
+.btnBox {
+  display: flex;
+  justify-content: center;
+}
+
+.submitButton {
+  margin-top: 40px;
+  border-radius: 200px;
+  padding: 16px 60px;
+  width: 166px;
+  height: 56px;
+  background: #e44848;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: #fff;
+}

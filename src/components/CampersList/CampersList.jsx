@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./CampersList.module.css";
 import Icon from "../UI/Icon/Icon";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCampers,
@@ -11,30 +11,31 @@ import {
 import {
   selectedCampersByFiltered,
   selectedCampersItem,
+  selectFavorites,
   selectHasMore,
   selectIsLoading,
 } from "../../redux/campers/selectors";
 import CampersCategories from "../CampersCategories/CampersCategories";
-import { setFilters } from "../../redux/campers/slice";
+import { setFilters, toggleFavorite } from "../../redux/campers/slice";
 import { buildQueryParams } from "../../hooks/buildQueryParams";
 import { PuffLoader } from "react-spinners";
 
 function CampersList() {
-  const [isFavorite, setIsFavorite] = useState(false);
   const dispatch = useDispatch();
 
   const campers = useSelector(selectedCampersItem);
   const filters = useSelector(selectedCampersByFiltered);
   const hasMore = useSelector(selectHasMore);
   const loading = useSelector(selectIsLoading);
+  const favorites = useSelector(selectFavorites);
 
   useEffect(() => {
     const queryParams = buildQueryParams(filters);
     dispatch(getCampersByLocation(queryParams));
   }, [filters, dispatch]);
 
-  const toggleFavorite = () => {
-    setIsFavorite((prev) => !prev);
+  const handleFavoriteClick = (id) => {
+    dispatch(toggleFavorite(id));
   };
 
   const handleLoadMore = () => {
@@ -70,7 +71,7 @@ function CampersList() {
           </div>
         )}
         {!loading && campers.length === 0 && (
-          <div className={styles.noResultsBox}>
+          <div className={styles.noResultsBoxTittle}>
             <h2 className={styles.noResults}>
               No results found. Try adjusting your filters.
             </h2>
@@ -99,7 +100,7 @@ function CampersList() {
                       <p className={styles.listPrice}>€{item.price}.00</p>
                       <button
                         className={styles.listBtnLike}
-                        onClick={toggleFavorite}
+                        onClick={() => handleFavoriteClick(item.id)}
                       >
                         <Icon
                           name="icon-Like"
@@ -107,14 +108,19 @@ function CampersList() {
                           height={24}
                           className={clsx(
                             styles.heart,
-                            isFavorite ? styles.heartActive : styles.heart
+                            favorites.includes(item.id)
+                              ? styles.heartActive
+                              : styles.heart
                           )}
                         />
                       </button>
                     </span>
                   </span>
                   <span className={styles.listNavigation}>
-                    <Link className={styles.listNavigationItem}>
+                    <Link
+                      to={`/catalog/${item.id}/reviews#reviews`}
+                      className={styles.listNavigationItem}
+                    >
                       <Icon
                         name="icon-Rating-full"
                         stroke={"transparent"}
@@ -122,10 +128,17 @@ function CampersList() {
                       />
                       {item.rating}({item.reviews.length})
                     </Link>
-                    <Link className={styles.listNavigationItem}>
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                        item.location
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.listNavigationItem}
+                    >
                       <Icon name="icon-map" stroke={"transparent"} />
                       {item.location}
-                    </Link>
+                    </a>
                   </span>
                 </div>
                 <p className={styles.listDesc}>

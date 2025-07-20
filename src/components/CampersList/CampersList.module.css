@@ -73,6 +73,7 @@
 }
 
 .listNavigationItem {
+  text-decoration: underline;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -153,12 +154,25 @@
   row-gap: 40px;
 }
 
-.noResultsBox {
+.noResultsBoxTittle {
   height: 1056px;
   width: 888px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.noResultsBox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 9999;
 }
 
 .noResults {
