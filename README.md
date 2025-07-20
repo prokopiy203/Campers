@@ -1,12 +1,87 @@
-# React + Vite
+Campers
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Campers is a website for searching and booking campervans. It features filtering, pagination, navigation, form submission simulation, and saving favorites.
 
-Currently, two official plugins are available:
+Technologies
+React 19
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Redux Toolkit
 
-## Expanding the ESLint configuration
+React Router DOM
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+React Datepicker
+
+React Hot Toast
+
+Axios
+
+Yup (form validation)
+
+Vite (build tool)
+
+CSS Modules
+
+ESLint
+
+Features
+Filtering and pagination of campers
+
+Search by various parameters
+
+Navigation between catalog and reviews pages
+
+Simulated booking form submission with validation
+
+Adding and saving favorites
+
+Custom DatePicker with date selection limits
+
+Working with API backend (note: the backend returns 404 on invalid requests, which is difficult to handle on the frontend)
+
+Installation and Running
+Clone the repository:
+
+git clone <your-repo-url>
+cd campers
+Install dependencies:
+
+npm install
+
+# or
+
+yarn
+Run locally:
+
+npm run dev
+
+# or
+
+yarn dev
+Open http://localhost:5173 in your browser.
+
+Scripts
+npm run dev — run in development mode
+
+npm run build — build the project
+
+npm run preview — preview the build
+
+npm run lint — run ESLint to check code
+
+Project Structure
+src/components — React components
+
+src/redux — Redux logic (slices, selectors, operations)
+
+src/hooks — custom React hooks
+
+src/assets — styles, images
+
+src/pages — app pages
+
+Known Issues
+When sending invalid requests, the backend returns 404 errors that are difficult to intercept on the frontend (backend limitation).
+
+Contact
+Author: Vlad Prokopiy
+Email: vladprokopiy@gmail.com
