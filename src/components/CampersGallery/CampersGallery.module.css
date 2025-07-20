@@ -1,0 +1,31 @@
+.imgBox {
+  display: flex;
+  gap: 48px;
+}
+
+.listImg {
+  width: 292px;
+  height: 320px;
+  border-radius: 10px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+:global(.yarl__backdrop) {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+:global(.yarl__container) {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+:global(.yarl__slides img) {
+  border-radius: 10px !important;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+}
+
+:global(.yarl__button svg) {
+  width: 50px !important;
+  height: 50px !important;
+}

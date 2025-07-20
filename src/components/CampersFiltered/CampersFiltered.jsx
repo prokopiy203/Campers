@@ -19,7 +19,7 @@ function CampersFiltered() {
     equipment: [],
     transmission: "",
     engine: "",
-    vehicleType: "",
+    form: "",
     location: "",
     page: 1,
     limit: 4,
@@ -48,11 +48,11 @@ function CampersFiltered() {
     dispatch(setFilters(selectedFilters));
 
     const query = {};
-    const { location, equipment, vehicleType, transmission, engine, limit } =
+    const { location, equipment, form, transmission, engine, limit } =
       selectedFilters;
 
     if (location.trim()) query.location = location.trim();
-    if (vehicleType) query.form = vehicleType;
+    if (form) query.form = form;
     if (transmission) query.transmission = transmission;
     if (engine) query.engine = engine;
     if (equipment.length) equipment.forEach((item) => (query[item] = true));
@@ -72,19 +72,16 @@ function CampersFiltered() {
       equipment: [],
       transmission: "",
       engine: "",
-      vehicleType: "",
+      form: "",
       location: "",
       page: 1,
       limit: 4,
     };
 
-    setSelectedFilters(resetValues); // скидає локальний стейт
-    dispatch(resetFilters()); // скидає Redux
+    setSelectedFilters(resetValues);
+    dispatch(resetFilters());
     dispatch(getCampers());
   };
-
-  //   const location = useSelector(selectedCampersByLocation);
-  //   console.log("Location", location);
 
   return (
     <form className={style.filteredWrapper} onSubmit={handleSubmit}>
@@ -116,7 +113,6 @@ function CampersFiltered() {
       <h2 className={style.filterTitle}>Filter</h2>
       <h3 className={style.filterVehicle}>Vehicle equipment</h3>
       <ul className={clsx("scroll", style.filterTagBox)}>
-        {/* Radio для transmission */}
         {Object.entries(availableTags.transmission.values).map(
           ([subKey, subConfig]) => (
             <li key={`transmission-${subKey}`}>
@@ -130,7 +126,7 @@ function CampersFiltered() {
                   onChange={() => {
                     setSelectedFilters((prev) => ({
                       ...prev,
-                      transmission: prev.transmission === subKey ? "" : subKey, // якщо вже вибрано — зняти, інакше вибрати
+                      transmission: prev.transmission === subKey ? "" : subKey,
                     }));
                   }}
                 />
@@ -215,13 +211,13 @@ function CampersFiltered() {
             <input
               className={style.checkboxTag}
               type="checkbox"
-              name="vehicleType"
+              name="form"
               value="panelTruck"
-              checked={selectedFilters.vehicleType === "panelTruck"}
+              checked={selectedFilters.form === "panelTruck"}
               onChange={(e) =>
                 setSelectedFilters((prev) => ({
                   ...prev,
-                  vehicleType: e.target.checked ? e.target.value : "",
+                  form: e.target.checked ? e.target.value : "",
                 }))
               }
             />
@@ -242,13 +238,13 @@ function CampersFiltered() {
             <input
               className={style.checkboxTag}
               type="checkbox"
-              name="vehicleType"
+              name="form"
               value="fullyIntegrated"
-              checked={selectedFilters.vehicleType === "fullyIntegrated"}
+              checked={selectedFilters.form === "fullyIntegrated"}
               onChange={(e) =>
                 setSelectedFilters((prev) => ({
                   ...prev,
-                  vehicleType: e.target.checked ? e.target.value : "",
+                  form: e.target.checked ? e.target.value : "",
                 }))
               }
             />
@@ -270,12 +266,12 @@ function CampersFiltered() {
               className={style.checkboxTag}
               type="checkbox"
               value="alcove"
-              name="vehicleType"
-              checked={selectedFilters.vehicleType === "alcove"}
+              name="form"
+              checked={selectedFilters.form === "alcove"}
               onChange={(e) =>
                 setSelectedFilters((prev) => ({
                   ...prev,
-                  vehicleType: e.target.checked ? e.target.value : "",
+                  form: e.target.checked ? e.target.value : "",
                 }))
               }
             />

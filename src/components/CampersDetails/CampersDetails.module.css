@@ -1,0 +1,86 @@
+.listTitle {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33333;
+  color: #101828;
+  margin-bottom: 8px;
+}
+
+.listNavigation {
+  display: flex;
+  gap: 16px;
+}
+
+.titleBox {
+}
+
+.listNavigationItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #101828;
+  margin-bottom: 16px;
+}
+
+.listPrice {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33333;
+  color: #101828;
+}
+
+.listImg {
+  width: 292px;
+  height: 320px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.imgBox {
+  display: flex;
+  gap: 48px;
+}
+
+.listDesc {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #475467;
+}
+
+.detailsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  /* margin-bottom: 68px; */
+}
+
+.navBox {
+  display: flex;
+  gap: 40px;
+  height: 48px;
+  margin-bottom: 44px;
+  border-bottom: 1px solid #dadde1;
+}
+.navLink {
+  position: relative;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #101828;
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  background-color: #e44848;
+  z-index: 899;
+  height: 5px;
+  width: 85px;
+}

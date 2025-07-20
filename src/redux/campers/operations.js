@@ -19,19 +19,38 @@ export const getCampers = createAsyncThunk(
     }
   }
 );
-
 export const getCampersByLocation = createAsyncThunk(
   "campers/location",
   async (filters, thunkAPI) => {
-    try {
-      const { page = 1, limit = 4, ...query } = filters;
+    const { page = 1, limit = 4, ...query } = filters;
 
+    try {
       const response = await api.get("/campers", {
         params: { ...query, page, limit },
       });
 
       return response.data;
     } catch (error) {
+      if (error.response?.status === 404) {
+        return { items: [], total: 0 }; // ✅ обробка прямо тут
+      }
+
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getCamperById = createAsyncThunk(
+  "campers/getById",
+  async (id, thunkAPI) => {
+    try {
+      const response = await api.get(`/campers/${id}`);
+      console.log("FetchID", response.data);
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 404) {
+        return thunkAPI.rejectWithValue("Camper not found");
+      }
       return thunkAPI.rejectWithValue(error.message);
     }
   }

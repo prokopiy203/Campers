@@ -1,0 +1,46 @@
+.featuresBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 44px 72px;
+  width: 631px;
+  height: 588px;
+  background: #f7f7f7;
+}
+
+.featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.featuresTitle {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #101828;
+  position: relative;
+  margin-bottom: 48px;
+}
+
+.featuresTitle::before {
+  content: "";
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background-color: #dadde1;
+}
+
+.featuresTitleDesc {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  color: #101828;
+}

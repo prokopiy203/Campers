@@ -1,12 +1,14 @@
 import { lazy, Suspense } from "react";
 import "./App.css";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const CatalogPage = lazy(() => import("./pages/CatalogPage/CatalogPage"));
 const DetailsPage = lazy(() => import("./pages/DetailsPage/DetailsPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage/NotFoundPage"));
+const FeaturesPage = lazy(() => import("./pages/FeaturesPage/FeaturesPage"));
+const ReviewsPage = lazy(() => import("./pages/ReviewsPage/ReviewsPage"));
 
 function App() {
   const location = useLocation();
@@ -18,7 +20,11 @@ function App() {
           <Route path="/" element={<SharedLayout />}>
             <Route index element={<HomePage />} />
             <Route path="catalog" element={<CatalogPage />} />
-            <Route path="catalog/:id" element={<DetailsPage />} />
+            <Route path="catalog/:id" element={<DetailsPage />}>
+              <Route index element={<Navigate to="features" replace />} />
+              <Route path="features" element={<FeaturesPage />} />
+              <Route path="reviews" element={<ReviewsPage />} />
+            </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

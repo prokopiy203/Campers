@@ -91,6 +91,9 @@
 
 .listBtnMore {
   border-radius: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   width: 166px;
   height: 56px;
@@ -108,7 +111,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 8px;
-  /* width: 400px; */
   height: 104px;
   overflow-y: scroll;
 }
@@ -149,4 +151,19 @@
   flex-direction: column;
   align-items: center;
   row-gap: 40px;
+}
+
+.noResultsBox {
+  height: 1056px;
+  width: 888px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.noResults {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.33333;
+  color: #475467;
 }

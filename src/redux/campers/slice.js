@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getCampers, getCampersByLocation } from "./operations";
+import { getCamperById, getCampers, getCampersByLocation } from "./operations";
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -13,11 +13,12 @@ const handleRejected = (state, action) => {
 
 const initialState = {
   items: [],
+  camperDetails: null,
   filters: {
     equipment: [],
     transmission: "",
     engine: "",
-    vehicleType: "",
+    form: "",
     location: "",
     page: 1,
     limit: 4,
@@ -41,7 +42,7 @@ const campersSlice = createSlice({
         equipment: [],
         transmission: "",
         engine: "",
-        vehicleType: "",
+        form: "",
         location: "",
         page: 1,
         limit: 4,
@@ -85,7 +86,14 @@ const campersSlice = createSlice({
         state.total = action.payload.total;
         state.hasMore = state.items.length < action.payload.total;
       })
-      .addCase(getCampersByLocation.rejected, handleRejected),
+      .addCase(getCampersByLocation.rejected, handleRejected)
+      .addCase(getCamperById.pending, handlePending)
+      .addCase(getCamperById.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.camperDetails = action.payload;
+      })
+      .addCase(getCamperById.rejected, handleRejected),
 });
 
 export const { setFilters, resetFilters } = campersSlice.actions;

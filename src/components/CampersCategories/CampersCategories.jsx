@@ -4,7 +4,7 @@ import { availableTags } from "../../hooks/tagConfig";
 
 function CampersCategories({ categories }) {
   return (
-    <>
+    <div className={styles.listTegBox}>
       {Object.entries(availableTags).map(([key, config]) => {
         const value = categories[key];
         if (typeof value === "boolean") {
@@ -37,7 +37,7 @@ function CampersCategories({ categories }) {
         }
         return null;
       })}
-    </>
+    </div>
   );
 }
 

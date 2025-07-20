@@ -1,7 +1,6 @@
 import React from "react";
 import Icon from "../UI/Icon/Icon";
 import styles from "./AppBar.module.css";
-import { current } from "@reduxjs/toolkit";
 import Container from "../Container/Container";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
@@ -20,6 +19,7 @@ function AppBar() {
         <div className={styles.navBox}>
           <NavLink
             to="/"
+            end
             className={({ isActive }) =>
               clsx(styles.navLink, { [styles.active]: isActive })
             }
@@ -28,6 +28,7 @@ function AppBar() {
           </NavLink>
           <NavLink
             to="/catalog"
+            end
             className={({ isActive }) =>
               clsx(styles.navLink, { [styles.active]: isActive })
             }
